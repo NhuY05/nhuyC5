@@ -5,46 +5,47 @@ Created on Sun Sep 15 01:24:21 2024
 @author: Vivobook
 """
 import random
-#Người mua vé
-while True:
-    somoive = []
+
+sove = int(input("Nhập số vé bạn muốn mua: "))
+tongtienthang = 0
+giave = 10000
+
+sotrungthuong = []
+while len(sotrungthuong) < 6:
+    so = random.randint(1, 45)
+    if so not in sotrungthuong:
+        sotrungthuong.append(so)
+sotrungthuong.sort()
+print("Dãy số trúng thưởng: ", sotrungthuong)
+
+for i in range(sove):
+    ve = []
+    while len(ve) < 6:
+        so = random.randint(1, 45)
+        if so not in ve:
+            ve.append(so)
+    ve.sort()
     
-#Số vé   
-    sove = int(input("Số vé bạn muốn mua: "))
-    if sove < 1:
-        print("Số vé phải lớn hơn 0")
-        continue
-    
-    for i in range(sove):
-        so = set()
-        print(f"\nChọn 6 số cho vé số {i + 1}: ")
-    
-        while len(so) < 6:
-            num = (int(input("Chọn 6 số bất kì từ 1-45: ")))
-            if 1 <= num <= 45:
-                so.add(num)
-            
-            else:
-                print("Vui lòng nhập số từ 1-45")
-        somoive.append(so)
-    break
-#Giá vé
-gia = 10000
-tongtien = sove * gia
+    sotrung = 0
+    for num in ve:
+        if num in sotrungthuong:
+            sotrung += 1
 
-#Máy xổ số
-sotrung = random.sample(range(1, 46), 6)
-print("Dãy số trúng thưởng","-".join(map(str,sotrung)))
+    if sotrung == 6:
+        tongtienthang += 10000000000
+    elif sotrung == 5:
+        tongtienthang += 10000000
+    elif sotrung == 4:
+        tongtienthang += 300000
+    elif sotrung == 3:
+        tongtienthang += 30000
 
-#Kết quả
-sogiong = len(so.intersection(sotrung))
+    print("Vé", i + 1, ":", ve, "- Trùng", sotrung, "số, Thưởng:", "{:,}".format(tongtienthang), "vnđ")
 
-#tiền
-mucthuong = [0, 0, 0, 30000, 300000, 10000000, 10000000000]
-tientrungthuong = mucthuong[sogiong] * sove
-
-print("Tổng tiền mua vé số: ", tongtien)
-print("Tổng số tiền trúng thưởng: ", tientrungthuong)
+tongchiphi = sove * giave
+print("Tổng tiền trúng:", "{:,}".format(tongtienthang), "vnđ")
+print("Tổng chi phí:", "{:,}".format(tongchiphi), "vnđ")
+print("Lợi nhuận:", "{:,}".format(tongtienthang - tongchiphi), "vnđ")
 
 
 
